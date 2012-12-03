@@ -85,7 +85,7 @@ function initMap(){
 	
 	mapLayer = po.image()
 	    .url(po.url("http://{S}tile.cloudmade.com"
-	    + "/b12a0bb2f7844dda8b214fda256a6bbd" // please get your own API key if you use this somewhere else!
+	    + "/309a2acaa56541c88e0579dd4883a508" // please get your own API key if you use this somewhere else!
 	    + "/998/256/{Z}/{X}/{Y}.png")
 	    .hosts(["a.", "b.", "c.", ""]));
 	
