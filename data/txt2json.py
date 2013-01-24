@@ -100,39 +100,32 @@ def convertCountry(country):
 			previousState = None
 			previousPoint = None
 			for zip in zips:
-				if zip['state'] != previousState:
-					previousState = zip['state']
-					states[previousState].append([])
-					if previousPoint != None:
-						stateConnectors.append(
-							[previousPoint['lon'], previousPoint['lat']])
-						stateConnectors.append([zip['lon'], zip['lat']])
-					
-				states[previousState][-1].append([zip['lon'], zip['lat']])
-				previousPoint = zip
+				if previousPoint is not None:
+					coordinates = [[previousPoint['lon'], previousPoint['lat']],
+								   [zip['lon'], zip['lat']]]
+					connector = {
+						'type': 'Feature',
+						'geometry': {
+							'type': 'LineString',
+							'coordinates': [[previousPoint['lon'], previousPoint['lat']],
+											[zip['lon'], zip['lat']]] },
+						'properties': {} }
 
-			geoJSON = {'type': 'FeatureCollection'}
-			
-			geoJSON['features'] = map(lambda s :
-				{'type': 'Feature',
-				 'geometry': {
-				 	'type': 'MultiLineString',
-				 	'coordinates': states[s]
-				 },
-				 'properties': {},
-				 'id': s
-				}, states.keys())
-		
-			geoJSON['features'].insert(0, {
-				'type': 'Feature',
-				'geometry': {
-					'type': 'LineString',
-					'coordinates': stateConnectors
-				},
-				'properties': {},
-				'id': '000stateconnectors'
-			})
-	
+					if zip['state'] != previousState:
+						print '%s -> %s' % (previousState, zip['state'])
+						connector['id'] = '000stateconnectors'
+					else:
+						connector['id'] = zip['state']
+
+					stateConnectors.append(connector)
+
+				previousPoint = zip
+				previousState = zip['state']
+
+			geoJSON = {
+				'type': 'FeatureCollection',
+				'features': stateConnectors
+			}
 			countryInfo[country]['states'] = True
 
 
