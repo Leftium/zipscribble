@@ -76,6 +76,7 @@ function initMap(){
 	var po = org.polymaps;
 	
 	var svg = po.svg('svg');
+	svg.setAttribute('id', 'svg');
 	svg.setAttribute('width', '100%');
 	svg.setAttribute('height', '100%');
 
@@ -92,12 +93,95 @@ function initMap(){
 	map.add(mapLayer);
 	
 	scribbleLayer = po.geoJson();
+
+//*
+    var svg = n$('#svg')
+    svg.add('svg:linearGradient')
+        .attr('id',  'g1')
+
+        //.attr('gradientUnits', 'userSpaceOnUse')
+        //.attr('gradientUnits', 'objectBoundingBox')
+
+        .attr('spreadMethod', 'repeat')
+
+        //.attr('gradientTransform', 'rotate(180)')
+        //.attr('gradientTransform', 'matrix(1,1,-1,1,0,0)')
+
+        /**/
+        .attr('x1', '0%')
+        .attr('y1', '0')
+        .attr('x2', '10%')
+        .attr('y2', '0')
+        /**/
+
+        /*
+        .add('svg:animate')
+            .attr('attributeName', 'x1')
+            .attr('dur', '10s')
+            .attr('from', '0%')
+            .attr('to', '90%')
+            .attr('repeatCount', 'indefinite')
+        .parent()
+        .add('svg:animate')
+            .attr('attributeName', 'x2')
+            .attr('dur', '10s')
+            .attr('from', '10%')
+            .attr('to', '100%')
+            .attr('repeatCount', 'indefinite')
+        .parent()
+        /**/
+
+        .add('svg:stop')
+            .attr('offset', '0%')
+            .attr('stop-color', 'black')
+            /*
+            .add('svg:animate')
+                .attr('attributeName', 'stop-color')
+                .attr('begin', '0s')
+                .attr('dur', '5s')
+                .attr('values', 'black;white;black')
+                .attr('repeatCount', 'indefinite')
+            .parent()
+            /**/
+        .parent()
+
+        /*
+        .add('svg:stop')
+            .attr('offset', '50%')
+            .attr('stop-color', 'red')
+
+            .add('svg:animate')
+                .attr('attributeName', 'stop-color')
+                .attr('dur', '5s')
+                .attr('values', 'red;white;black;red')
+                .attr('repeatCount', 'indefinite')
+            .parent()
+        .parent()
+        /**/
+
+        .add('svg:stop')
+            .attr('offset', '100%')
+            .attr('stop-color', 'white')
+            /*
+            .add('svg:animate')
+                .attr('attributeName', 'stop-color')
+                .attr('begin', '0s')
+                .attr('dur', '5s')
+                .attr('values', 'white;black;white')
+                .attr('repeatCount', 'indefinite')
+            .parent()
+            /**/
+        .parent()
+
+/**/
+
 	
 	map.add(scribbleLayer.on('load', po.stylist()
+        // .attr('transform', 'rotate(45)')
 		.attr('stroke', function(d) {
 			if (showStates) {
 				if (d.id == '000stateconnectors')
-					return 'gray'
+					return 'magenta'
 				else {
 					if (stateColors[d.id] === undefined) {
 						stateColors[d.id] = 'rgb('+Math.floor(Math.random()*160)+','+Math.floor(Math.random()*160)+','+Math.floor(Math.random()*160)+')';
@@ -105,7 +189,11 @@ function initMap(){
 					return stateColors[d.id];
 				}
 			} else {
-				return 'black';
+                if (d.id == '000stateconnectors')
+					return 'url(#g1)'
+				else {
+				    return 'gray';
+                }
 			}
 	})));
 	
