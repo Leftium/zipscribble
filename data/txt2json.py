@@ -25,7 +25,7 @@ def compare(a, b):
 countryInfo = {}
 
 def convertCountry(country):
-	
+
 	reader = csv.reader(open(country+'.txt', 'rb'), delimiter='\t')
 
 	boundingbox = {	'minLat': 10000,
@@ -62,9 +62,9 @@ def convertCountry(country):
 				boundingbox['maxLat'] = max(boundingbox['maxLat'], z['lat'])
 				boundingbox['minLon'] = min(boundingbox['minLon'], z['lon'])
 				boundingbox['maxLon'] = max(boundingbox['maxLon'], z['lon'])
-	
-	centerLat = (boundingbox['minLat'] + boundingbox['maxLat'])/2;
-	centerLon = (boundingbox['minLon'] + boundingbox['maxLon'])/2;
+
+	centerLat = (boundingbox['minLat'] + boundingbox['maxLat'])/2
+	centerLon = (boundingbox['minLon'] + boundingbox['maxLon'])/2
 
 	countryInfo[country] = { 'bbox':
 		[{'lon': centerLon - (centerLon - boundingbox['minLon']) * 1.1,
@@ -72,29 +72,29 @@ def convertCountry(country):
 		{'lon': centerLon + (boundingbox['maxLon'] - centerLon) * 1.1,
 		 'lat': centerLat + (boundingbox['maxLat'] - centerLat) * 1.1}]
 	}
-		 
+
 	if len(zips) == 0:
 		print 'No data for '+country+'!'
 	else:
 		zips.sort(compare)
-		
+
 		# uniq
 		last = zips[-1]
 		for i in range(len(zips)-2, -1, -1):
-		    if last['lon'] == zips[i]['lon'] and last['lat'] == zips[i]['lat']:
-		        del zips[i]
-		    else:
-		        last = zips[i]
-		
+			if last['lon'] == zips[i]['lon'] and last['lat'] == zips[i]['lat']:
+				del zips[i]
+			else:
+				last = zips[i]
+
 		if len(states.keys()) == 1:
 			geoJSON = {	'type': 'LineString' }
-			
+
 			geoJSON['coordinates'] = map(lambda z : [z['lon'], z['lat']], zips)
-			
+
 			countryInfo[country]['states'] = False
-			
+
 		else:
-		
+
 			stateConnectors = []
 
 			previousState = None
@@ -134,8 +134,8 @@ def convertCountry(country):
 			})
 	
 			countryInfo[country]['states'] = True
-	
-		
+
+
 		with open('zipscribble_'+country+'.json', 'wb') as out:
 			json.dump(geoJSON, out)		
 
