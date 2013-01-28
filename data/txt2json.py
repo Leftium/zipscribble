@@ -104,9 +104,10 @@ def convertCountry(country):
                     previousState = zip['state']
                     states[previousState].append([])
                     if previousPoint != None:
-                        stateConnectors.append(
-                            [previousPoint['lon'], previousPoint['lat']])
-                        stateConnectors.append([zip['lon'], zip['lat']])
+                        stateConnectors.append([
+                            [previousPoint['lon'], previousPoint['lat']],
+                            [zip['lon'], zip['lat']]
+                        ])
 
                 states[previousState][-1].append([zip['lon'], zip['lat']])
                 previousPoint = zip
@@ -126,7 +127,7 @@ def convertCountry(country):
             geoJSON['features'].insert(0, {
                 'type': 'Feature',
                 'geometry': {
-                    'type': 'LineString',
+                    'type': 'MultiLineString',
                     'coordinates': stateConnectors
                 },
                 'properties': {},
