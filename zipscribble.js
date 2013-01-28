@@ -121,6 +121,10 @@ function initMap(){
     map.add(po.compass()
         .pan("none"));
 
+    showMap = $('#showMap').prop('checked');
+    toggleMap(showMap);
+    showStates = $('#showStates').prop('checked');
+    showDirection = $('#showDirection').prop('checked');
     if (document.location.hash.length == 0)
         switchCountry(getCookie('lastCountry') || 'US', true);
 
