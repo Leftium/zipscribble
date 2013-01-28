@@ -148,7 +148,8 @@ function toggleDirection(directionOn) {
 
 function switchCountry(country, panMap) {
     currentCountry = country;
-    jQuery('#country')[0].value = country;
+    // jQuery('#country')[0].value = country;
+    dijit.byId('country').set('value', country);
     scribbleLayer.url(makeGeoJSONURL(country));
     setCookie('lastCountry', country, 30);
     if (panMap) {
@@ -192,5 +193,3 @@ function hash_formatter(map) {
       + "/" + center.lon.toFixed(precision)
       ;
 }
-
-initMap();
