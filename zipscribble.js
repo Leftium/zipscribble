@@ -100,7 +100,7 @@ function initMap(){
 					return 'gray'
 				else {
 					if (stateColors[d.id] === undefined) {
-						stateColors[d.id] = 'rgb('+Math.floor(Math.random()*160)+','+Math.floor(Math.random()*160)+','+Math.floor(Math.random()*160)+')';
+						stateColors[d.id] = 'rgb('+Math.floor(Math.random()*160)+','+Math.floor(Math.random()*256)+','+Math.floor(Math.random()*256)+')';
 					}
 					return stateColors[d.id];
 				}
