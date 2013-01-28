@@ -26,6 +26,8 @@ var currentCountry = 'US';
 
 var showStates = false;
 
+var showDirection = false;
+
 var PATH;
 
 var stateColors = {}
@@ -94,6 +96,13 @@ function initMap(){
     scribbleLayer = po.geoJson();
 
     map.add(scribbleLayer.on('load', po.stylist()
+        .attr('stroke-dasharray', function() {
+            if (showDirection) {
+                return '0,6,2,2,2,2,2,2,2,2,2,2,20,0';
+            } else {
+                return 'none';
+            }
+        })
         .attr('stroke', function(d) {
             if (showStates) {
                 if (d.id == '000stateconnectors')
@@ -126,6 +135,11 @@ function toggleStates(statesOn) {
     showStates = statesOn;
     scribbleLayer.reload();
     stateColors = {};
+}
+
+function toggleDirection(directionOn) {
+    showDirection = directionOn;
+    scribbleLayer.reload();
 }
 
 function switchCountry(country, panMap) {
