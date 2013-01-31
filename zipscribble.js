@@ -96,6 +96,13 @@ function initMap(){
     scribbleLayer = po.geoJson();
 
     map.add(scribbleLayer.on('load', po.stylist()
+        .title(function(feature) {
+            if (showStates && (feature.id != '000stateconnectors')) {
+              return feature.id;
+            } else {
+              return '';
+            }
+        })
         .attr('stroke-dasharray', function() {
             if (showDirection) {
                 return '0,6,2,2,2,2,2,2,2,2,2,2,20,0';
