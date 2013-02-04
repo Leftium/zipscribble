@@ -132,8 +132,13 @@ function initMap(){
     toggleMap(showMap);
     showStates = $('#showStates').prop('checked');
     showDirection = $('#showDirection').prop('checked');
-    if (document.location.hash.length == 0)
-        switchCountry(getCookie('lastCountry') || 'US', true);
+    if (document.location.hash.length == 0) {
+        var defaultCountry = 'KR';
+        if (!countryInfo[defaultCountry]) {
+            defaultCountry = Object.keys(countryInfo)[0];
+        }
+        switchCountry(getCookie('lastCountry') || defaultCountry, true);
+    }
 
     map.add(po.hash().parser(hash_parser).formatter(hash_formatter));
 }
