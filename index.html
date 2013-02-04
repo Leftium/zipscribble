@@ -47,7 +47,7 @@
         <div id="container">
             <h1>ZIPScribble: Connect-the-Zipcodes</h1>
             <div style="margin-bottom: 10px">
-                <form>
+                <form style="float: left">
                     <div data-dojo-type="dojo/store/Memory"
                          data-dojo-id="countryStore"
                          data-dojo-props="data: [
@@ -93,6 +93,8 @@
                          ]"></div>
                     <select data-dojo-type="dijit/form/FilteringSelect" name="country" id="country" onchange="switchCountry(this.value, true);" data-dojo-props="selectOnClick:true, store: countryStore" >
                     </select>
+                </form>
+                <form>
                     <label for="showMap">
                         <input type="checkbox" name="showMap" id="showMap" checked onclick="toggleMap(this.checked);" />Show Map
                     </label>
