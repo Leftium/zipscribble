@@ -61,7 +61,7 @@ function getCookie(name) {
 
 function initMap(){
 
-    if (document.location.hostname == "" || document.location.hostname == "localhost")
+    if (/^$|localhost|github.com/.test(document.location.hostname))
         PATH = 'data/';
     else
         PATH = '/media/zipscribble/data/';
