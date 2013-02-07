@@ -1,7 +1,4 @@
 *.esproj
 data/*.txt
-data/*.json
 data/*.zip
 
-# Include Korean data
-!data/KR.txt
